@@ -67,7 +67,7 @@ export const newLink = async (args: string[]) => {
 
 const getQueryString = (obj: any, ignore?: string[]) => {
   return Object.keys(obj)
-    .filter((key) => !ignore.includes(key) && !!obj[key])
+    .filter((key) => (!ignore || !ignore.includes(key)) && !!obj[key])
     .map((key) => key + '=' + obj[key])
     .join('&');
 };
