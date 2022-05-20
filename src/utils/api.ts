@@ -29,11 +29,30 @@ export const getQuote = async () => {
   };
 };
 
-export const newLink = async (link: {
-  original: string;
-  want?: string;
-  redirect?: boolean;
-}) => {
+export const newLink = async (args: string[]) => {
+  const link = {
+    original: args[0],
+    want: args[1],
+  };
+
+  const usage = 'Usage: link [original] [want]';
+  if (!link.original) {
+    throw `${usage}. Example: \n$ link https://youtu.be/dQw4w9WgXcQ video\n$ > https://brill.wtf/video`;
+  }
+
+  var validURL = new RegExp(
+    '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$',
+    'i',
+  ); // fragment locator
+  if (!validURL.test(link.original)) {
+    throw `${usage}. [link] must be a valid URL.`;
+  }
+
   const q = getQueryString(link, ['original']);
 
   const { data } = await axios.post(
