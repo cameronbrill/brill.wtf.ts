@@ -33,6 +33,7 @@ export const newLink = async (args: string[]) => {
   const link = {
     original: args[0],
     want: args[1],
+    forever: args[2] === 'forever',
   };
 
   const usage = 'Usage: link [original] [want]';
