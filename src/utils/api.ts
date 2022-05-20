@@ -65,6 +65,15 @@ export const newLink = async (args: string[]) => {
   return data.short;
 };
 
+export const getLink = async (link: { short: string; redirect?: boolean }) => {
+  const q = getQueryString(link);
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_LINK_API_DOMAIN}/link${q ? `?${q}` : ''}`,
+  );
+
+  return data;
+};
+
 const getQueryString = (obj: any, ignore?: string[]) => {
   return Object.keys(obj)
     .filter((key) => (!ignore || !ignore.includes(key)) && !!obj[key])

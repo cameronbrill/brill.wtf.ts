@@ -38,6 +38,28 @@ export const weather = async (args: string[]): Promise<string> => {
 };
 
 export const link = async (args: string[]): Promise<string> => {
+  if (args[0] === 'get') {
+    const short = args[1];
+    if (!short) {
+      return 'Usage: link get [short]. Example:\n$ link get video\n$ > https://youtu.be/dQw4w9WgXcQ';
+    }
+
+    try {
+      const link = await getLink({
+        short,
+      });
+      return `https://brill.wtf/${link?.short} points to: ${link?.original}`;
+    } catch (e) {
+      if (e.response.status === 404) {
+        return `https://brill.wtf/${short} not found.`;
+      } else if (!!e.response?.data) {
+        return `uh oh! there was an error:\n${JSON.stringify(
+          e.response.data,
+        )}\n`;
+      }
+      return e;
+    }
+  }
   try {
     const link = await newLink(args);
     return `visit: https://brill.wtf/${link}`;
