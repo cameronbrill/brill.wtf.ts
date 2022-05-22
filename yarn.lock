@@ -1496,6 +1496,11 @@ next@12.1.6:
     "@next/swc-win32-ia32-msvc" "12.1.6"
     "@next/swc-win32-x64-msvc" "12.1.6"
 
+nextjs-redirect@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/nextjs-redirect/-/nextjs-redirect-6.0.0.tgz#4ef5a2dc7112ffe6a3e05b6be7ee783cbdf5db66"
+  integrity sha512-x/EF5A4AvFtEXpn0aD2mHk2oubCpVhCz8zBBQGApLsgbVXaJ1zFrBo0DEwCrMXCy7W3udqWiawU6io3LXBilLA==
+
 node-releases@^2.0.3:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.4.tgz#f38252370c43854dc48aa431c766c6c398f40476"
