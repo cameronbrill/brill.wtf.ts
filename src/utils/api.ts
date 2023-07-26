@@ -13,9 +13,9 @@ export const getReadme = async () => {
   return data;
 };
 
-export const getWeather = async (city: string) => {
+export const getWeather = async (city?: string) => {
   try {
-    const { data } = await axios.get(`https://wttr.in/${city}?ATm`);
+    const { data } = await axios.get(`https://wttr.in/${city || ''}?ATm`);
     return data;
   } catch (error) {
     return error;
