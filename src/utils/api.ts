@@ -57,7 +57,9 @@ export const newLink = async (args: string[]) => {
   const q = getQueryString(link, ['original']);
 
   const { data } = await axios.post(
-    `${process.env.NEXT_PUBLIC_LINK_API_DOMAIN}/link${q ? `?${q}` : ''}`,
+    `${
+      process.env.NEXT_PUBLIC_LINK_API_DOMAIN || 'http://localhost:3333'
+    }/link${q ? `?${q}` : ''}`,
     {
       original: link.original,
     },
@@ -69,7 +71,9 @@ export const newLink = async (args: string[]) => {
 export const getLink = async (link: { short: string; redirect?: boolean }) => {
   const q = getQueryString(link);
   const { data } = await axios.get(
-    `${process.env.NEXT_PUBLIC_LINK_API_DOMAIN}/link${q ? `?${q}` : ''}`,
+    `${
+      process.env.NEXT_PUBLIC_LINK_API_DOMAIN || 'http://localhost:3333'
+    }/link${q ? `?${q}` : ''}`,
   );
 
   return data;
