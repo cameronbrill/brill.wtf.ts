@@ -29,10 +29,29 @@ export const readme = async (args: string[]): Promise<string> => {
 };
 
 export const weather = async (args: string[]): Promise<string> => {
-  const city = args.join('+');
-  if (!city) {
-    return 'Usage: weather [city]. Example: weather casablanca';
+  const cmds = [
+    ['--city', '-c'],
+    ['--here', '-H'],
+    ['--help', '-h'],
+  ];
+
+  var isValid = false;
+  for (const cmd of cmds) {
+    if (cmd.indexOf(args[0]) !== -1) {
+      isValid = true;
+      break;
+    }
   }
+  if (!isValid) args = ['--help'];
+
+  var city: string | undefined;
+  if (args[0] === '--city' || args[0] === '-c') {
+    city = args.slice(1).join('+');
+    if (!city) args[0] = '--help';
+  }
+
+  if (args[0] == '--help' || args[0] == '-h')
+    return 'Usage: weather [--city,-c (city...)] [--here, -H] [--help, -h]. Example: weather --city san francisco.';
   const weather = await getWeather(city);
   return weather;
 };
